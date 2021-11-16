@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace IdentityServerAspNetIdentity
     {
         public static void Main(string[] args)
         {
+            OracleConfiguration.WalletLocation = @"C:\dev\Oracle\Wallet";
             CreateHostBuilder(args).Build().Run();
         }
 
