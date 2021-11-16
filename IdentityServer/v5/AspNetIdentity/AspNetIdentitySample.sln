@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServerAspNetIdentit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{88433EF3-2866-4164-8CEC-A0D2E6A24A27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prueba-oracle", "..\..\..\..\..\prueba-oracle\prueba-oracle.csproj", "{0B60899D-7274-4905-A24C-5FD3C871CAC2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{88433EF3-2866-4164-8CEC-A0D2E6A24A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88433EF3-2866-4164-8CEC-A0D2E6A24A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88433EF3-2866-4164-8CEC-A0D2E6A24A27}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B60899D-7274-4905-A24C-5FD3C871CAC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B60899D-7274-4905-A24C-5FD3C871CAC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B60899D-7274-4905-A24C-5FD3C871CAC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B60899D-7274-4905-A24C-5FD3C871CAC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
