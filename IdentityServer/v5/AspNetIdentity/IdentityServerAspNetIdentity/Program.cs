@@ -14,7 +14,7 @@ namespace IdentityServerAspNetIdentity
     {
         public static void Main(string[] args)
         {
-            OracleConfiguration.WalletLocation = @"C:\dev\Oracle\Wallet";
+            OracleConfiguration.WalletLocation = @"C:\dev\Oracle\Client\instantclient_21_3\network\admin";
             CreateHostBuilder(args).Build().Run();
         }
 

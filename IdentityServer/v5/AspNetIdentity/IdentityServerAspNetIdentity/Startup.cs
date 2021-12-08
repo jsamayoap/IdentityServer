@@ -8,7 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 using IdentityServerAspNetIdentity.Data;
-using Oracle.ManagedDataAccess.Client;
+using System.Collections.Generic;
+using anubis.Data;
 
 namespace IdentityServerAspNetIdentity
 {
@@ -24,9 +25,9 @@ namespace IdentityServerAspNetIdentity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options => 
+            services.AddDbContext<ApplicationDbContext>(options =>
             {
-                
+
                 options.UseOracle(
                     Configuration.GetConnectionString("DefaultConnection"));
             }
@@ -40,13 +41,27 @@ namespace IdentityServerAspNetIdentity
                 .AddInMemoryClients(new Client[] {
                     new Client
                     {
-                        ClientId = "client",
-                        AllowedGrantTypes = GrantTypes.Implicit,
-                        RedirectUris = { "https://localhost:5002/signin-oidc" },
-                        PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
-                        FrontChannelLogoutUri = "https://localhost:5002/signout-oidc",
-                        AllowedScopes = { "openid", "profile", "email", "phone" }
-                    }
+                        ClientId = "seth",
+                        ClientName="DRCPFA FrontEnd",
+                        AllowedGrantTypes = GrantTypes.Code,
+                        RequirePkce = true,
+                        RequireClientSecret = false,
+                        AllowAccessTokensViaBrowser = true,
+                        RedirectUris = { "http://localhost:4200/auth-callback", "http://localhost:4200/silent-refresh.html" },
+                        PostLogoutRedirectUris = { "http://localhost:4200/" },
+                        AllowedCorsOrigins =  { "http://localhost:4200" },
+                        AllowedScopes = { "openid", "profile", "email", "phone", "osiris" }
+                    },
+                    new Client {
+                    ClientId = "osiris",
+                    AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
+                    AlwaysIncludeUserClaimsInIdToken = true,
+                    // secret for authentication
+                    ClientSecrets =
+                    {
+                        new Secret("Secreto@3#2!2018".Sha256())
+                    },
+                },
                 })
                 .AddInMemoryIdentityResources(new IdentityResource[] {
                     new IdentityResources.OpenId(),
@@ -54,6 +69,7 @@ namespace IdentityServerAspNetIdentity
                     new IdentityResources.Email(),
                     new IdentityResources.Phone(),
                 })
+                .AddInMemoryApiScopes(configuration.getApiScopes())
                 .AddAspNetIdentity<IdentityUser>();
 
             services.AddLogging(options =>
