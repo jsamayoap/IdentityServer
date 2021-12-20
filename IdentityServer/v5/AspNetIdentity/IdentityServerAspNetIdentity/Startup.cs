@@ -8,7 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 using IdentityServerAspNetIdentity.Data;
-using System.Collections.Generic;
 using anubis.Data;
 
 namespace IdentityServerAspNetIdentity
@@ -50,17 +49,17 @@ namespace IdentityServerAspNetIdentity
                         RedirectUris = { "http://localhost:4200/auth-callback", "http://localhost:4200/silent-refresh.html" },
                         PostLogoutRedirectUris = { "http://localhost:4200/" },
                         AllowedCorsOrigins =  { "http://localhost:4200" },
-                        AllowedScopes = { "openid", "profile", "email", "phone", "osiris" }
+                        AllowedScopes = { "openid", "profile", "email", "phone", "apiPagos" }
                     },
                     new Client {
                     ClientId = "osiris",
-                    AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
-                    AlwaysIncludeUserClaimsInIdToken = true,
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
                     // secret for authentication
                     ClientSecrets =
                     {
                         new Secret("Secreto@3#2!2018".Sha256())
                     },
+                     AllowedScopes = { "apiPagos" }
                 },
                 })
                 .AddInMemoryIdentityResources(new IdentityResource[] {
@@ -70,6 +69,7 @@ namespace IdentityServerAspNetIdentity
                     new IdentityResources.Phone(),
                 })
                 .AddInMemoryApiScopes(configuration.getApiScopes())
+                .AddInMemoryApiResources(configuration.apiResources)
                 .AddAspNetIdentity<IdentityUser>();
 
             services.AddLogging(options =>

@@ -7,15 +7,15 @@ namespace anubis.Data
     {
         public static IEnumerable<ApiScope> getApiScopes() => new List<ApiScope>
             {
-                new ApiScope("osiris", "Backend DRCPFA")
+                new ApiScope("apiPagos", "Backend DRCPFA")
                 {
                     UserClaims=new List<string> { "roles" }
                 }
             };
 
-        public static List<ApiResource> apiResources = new List<ApiResource>
+        public static IEnumerable<ApiResource> apiResources = new List<ApiResource>
         {
-            new ApiResource("osiris", "My API #1")
+            new ApiResource("apiPagos", "API de Pagos", new List<string> { "roles" })
         };
     }
 }
