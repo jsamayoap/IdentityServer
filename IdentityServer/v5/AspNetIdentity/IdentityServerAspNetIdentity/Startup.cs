@@ -37,38 +37,14 @@ namespace IdentityServerAspNetIdentity
             services.AddRazorPages();
 
             services.AddIdentityServer()
-                .AddInMemoryClients(new Client[] {
-                    new Client
-                    {
-                        ClientId = "seth",
-                        ClientName="DRCPFA FrontEnd",
-                        AllowedGrantTypes = GrantTypes.Code,
-                        RequirePkce = true,
-                        RequireClientSecret = false,
-                        AllowAccessTokensViaBrowser = true,
-                        RedirectUris = { "http://localhost:4200/auth-callback", "http://localhost:4200/silent-refresh.html" },
-                        PostLogoutRedirectUris = { "http://localhost:4200/" },
-                        AllowedCorsOrigins =  { "http://localhost:4200" },
-                        AllowedScopes = { "openid", "profile", "email", "phone", "apiPagos" }
-                    },
-                    new Client {
-                    ClientId = "osiris",
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    // secret for authentication
-                    ClientSecrets =
-                    {
-                        new Secret("Secreto@3#2!2018".Sha256())
-                    },
-                     AllowedScopes = { "apiPagos" }
-                },
-                })
+                .AddInMemoryClients(configuration.clients)
                 .AddInMemoryIdentityResources(new IdentityResource[] {
                     new IdentityResources.OpenId(),
                     new IdentityResources.Profile(),
                     new IdentityResources.Email(),
                     new IdentityResources.Phone(),
                 })
-                .AddInMemoryApiScopes(configuration.getApiScopes())
+                .AddInMemoryApiScopes(configuration.apiScopes)
                 .AddInMemoryApiResources(configuration.apiResources)
                 .AddAspNetIdentity<IdentityUser>();
 
